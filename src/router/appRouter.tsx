@@ -5,7 +5,7 @@ import { LoginPage } from '@/auth/pages/LoginPage'
 
 export const AppRouter = () => {
   type AuthStatus = 'not-authenticated' | 'authenticated'
-  const authStatus: AuthStatus = 'not-authenticated'
+  const authStatus: AuthStatus = 'authenticated'
 
   return (
     <Routes>
