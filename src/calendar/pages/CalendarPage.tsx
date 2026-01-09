@@ -7,6 +7,7 @@ import { Navbar } from '../components/Navbar'
 import { localizer } from '@/helpers/calendarLocalizer'
 import { getMessagesEs } from '@/helpers/getMessages'
 import { CalendarEvent } from '../CalendarEvent'
+import { CalendarModal } from '../components/CalendarModal'
 
 export interface CalendarEvent {
   title: string
@@ -41,16 +42,11 @@ const isView = (value: string): value is View => {
 export const CalendarPage = () => {
   const storedView = localStorage.getItem('lasView')
 
-  const [lastView, setLastView] = useState<View>(
+  const [lastView] = useState<View>(
     storedView && isView(storedView) ? storedView : 'week'
   )
 
-  const eventStyleGetter: EventPropGetter<CalendarEvent> = (
-    event,
-    start,
-    end,
-    isSelected
-  ) => {
+  const eventStyleGetter: EventPropGetter<CalendarEvent> = () => {
     const style: React.CSSProperties = {
       backgroundColor: '#347CF7',
       borderRadius: '0px',
@@ -96,6 +92,8 @@ export const CalendarPage = () => {
         onSelectEvent={onSelect}
         onView={onViewChanged}
       />
+
+      <CalendarModal />
     </>
   )
 }
