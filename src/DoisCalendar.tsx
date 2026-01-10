@@ -1,11 +1,15 @@
 import { BrowserRouter } from 'react-router'
 
 import { AppRouter } from './router/appRouter'
+import { Provider } from 'react-redux'
+import { store } from './store/store'
 
 export const DoisCalendar = () => {
   return (
-    <BrowserRouter>
-      <AppRouter />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
+    </Provider>
   )
 }
