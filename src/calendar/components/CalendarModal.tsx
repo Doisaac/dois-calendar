@@ -1,4 +1,10 @@
-import { useMemo, useState, type ChangeEvent, type FormEvent } from 'react'
+import {
+  useEffect,
+  useMemo,
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+} from 'react'
 
 import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
@@ -12,6 +18,7 @@ import { addHours, differenceInSeconds } from 'date-fns'
 import { es } from 'date-fns/locale/es'
 
 import { useUiStore } from '@/hooks/useUiStore'
+import { useCalendarStore } from '@/hooks/useCalendarStore'
 
 type FormValues = {
   title: string
@@ -37,11 +44,13 @@ Modal.setAppElement('#root')
 
 export const CalendarModal = () => {
   const { isDateModalOpen, closeDateModal } = useUiStore()
+  const { activeEvent } = useCalendarStore()
+
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false)
 
   const [formValues, setFormValues] = useState<FormValues>({
-    title: 'Douglas',
-    notes: 'Barrera',
+    title: '',
+    notes: '',
     start: new Date(),
     end: addHours(new Date(), 2),
   })
@@ -51,6 +60,13 @@ export const CalendarModal = () => {
 
     return formValues.title.length > 0 ? '' : 'is-invalid'
   }, [formValues.title, formSubmitted])
+
+  // Set the selected event
+  useEffect(() => {
+    if (activeEvent !== null) {
+      setFormValues({ ...activeEvent })
+    }
+  }, [activeEvent])
 
   const onInputChange = ({
     target,
