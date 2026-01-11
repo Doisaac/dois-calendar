@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { addHours } from 'date-fns'
 import { Calendar, type EventPropGetter, type View } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 
@@ -9,6 +8,7 @@ import { getMessagesEs } from '@/helpers/getMessages'
 import { CalendarEvent } from '../CalendarEvent'
 import { CalendarModal } from '../components/CalendarModal'
 import { useUiStore } from '@/hooks/useUiStore'
+import { useCalendarStore } from '@/hooks/useCalendarStore'
 
 export interface CalendarEvent {
   title: string
@@ -22,26 +22,14 @@ export interface CalendarEvent {
   }
 }
 
-const events: CalendarEvent[] = [
-  {
-    title: 'Cumpleaños del jefe',
-    notes: 'Comprar el pastel',
-    start: new Date(),
-    end: addHours(new Date(), 2),
-    bgColor: '#fafafa',
-    user: {
-      _id: '123',
-      name: 'Fernando',
-    },
-  },
-]
-
 const isView = (value: string): value is View => {
   return ['month', 'week', 'work_week', 'day', 'agenda'].includes(value)
 }
 
 export const CalendarPage = () => {
   const { openDateModal } = useUiStore()
+  const { events } = useCalendarStore()
+
   const storedView = localStorage.getItem('lasView')
 
   const [lastView] = useState<View>(
