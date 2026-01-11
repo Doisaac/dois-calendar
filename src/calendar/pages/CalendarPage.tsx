@@ -28,7 +28,7 @@ const isView = (value: string): value is View => {
 
 export const CalendarPage = () => {
   const { openDateModal } = useUiStore()
-  const { events } = useCalendarStore()
+  const { events, setActiveEvent } = useCalendarStore()
 
   const storedView = localStorage.getItem('lasView')
 
@@ -55,7 +55,7 @@ export const CalendarPage = () => {
   }
 
   const onSelect = (event: CalendarEvent) => {
-    console.log({ click: event })
+    setActiveEvent(event)
   }
 
   const onViewChanged = (event: View) => {
