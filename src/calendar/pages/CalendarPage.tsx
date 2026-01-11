@@ -8,6 +8,7 @@ import { localizer } from '@/helpers/calendarLocalizer'
 import { getMessagesEs } from '@/helpers/getMessages'
 import { CalendarEvent } from '../CalendarEvent'
 import { CalendarModal } from '../components/CalendarModal'
+import { useUiStore } from '@/hooks/useUiStore'
 
 export interface CalendarEvent {
   title: string
@@ -40,6 +41,7 @@ const isView = (value: string): value is View => {
 }
 
 export const CalendarPage = () => {
+  const { openDateModal } = useUiStore()
   const storedView = localStorage.getItem('lasView')
 
   const [lastView] = useState<View>(
@@ -61,6 +63,7 @@ export const CalendarPage = () => {
 
   const onDoubleClick = (event: CalendarEvent) => {
     console.log({ doubleClick: event })
+    openDateModal()
   }
 
   const onSelect = (event: CalendarEvent) => {

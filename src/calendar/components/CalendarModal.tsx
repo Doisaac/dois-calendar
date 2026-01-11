@@ -1,12 +1,17 @@
 import { useMemo, useState, type ChangeEvent, type FormEvent } from 'react'
+
 import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
 
-import { addHours, differenceInSeconds } from 'date-fns'
 import Modal from 'react-modal'
-import DatePicker, { registerLocale } from 'react-datepicker'
+
 import 'react-datepicker/dist/react-datepicker.css'
+import DatePicker, { registerLocale } from 'react-datepicker'
+
+import { addHours, differenceInSeconds } from 'date-fns'
 import { es } from 'date-fns/locale/es'
+
+import { useUiStore } from '@/hooks/useUiStore'
 
 type FormValues = {
   title: string
@@ -31,7 +36,7 @@ const customStyles = {
 Modal.setAppElement('#root')
 
 export const CalendarModal = () => {
-  const [isOpen, setIsOpen] = useState(true)
+  const { isDateModalOpen, closeDateModal } = useUiStore()
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false)
 
   const [formValues, setFormValues] = useState<FormValues>({
@@ -65,8 +70,7 @@ export const CalendarModal = () => {
   }
 
   const onCloseModal = () => {
-    console.log('closing modal')
-    setIsOpen(false)
+    closeDateModal()
   }
 
   const onSubmitForm = (event: FormEvent<HTMLFormElement>) => {
@@ -94,7 +98,7 @@ export const CalendarModal = () => {
     <Modal
       className="modal"
       overlayClassName="modal-fondo"
-      isOpen={isOpen}
+      isOpen={isDateModalOpen}
       onRequestClose={onCloseModal}
       style={customStyles}
       contentLabel="Example Modal"
