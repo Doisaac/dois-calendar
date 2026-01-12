@@ -20,7 +20,8 @@ import { es } from 'date-fns/locale/es'
 import { useUiStore } from '@/hooks/useUiStore'
 import { useCalendarStore } from '@/hooks/useCalendarStore'
 
-type FormValues = {
+export type FormValues = {
+  _id?: number
   title: string
   notes: string
   start: Date
@@ -44,7 +45,7 @@ Modal.setAppElement('#root')
 
 export const CalendarModal = () => {
   const { isDateModalOpen, closeDateModal } = useUiStore()
-  const { activeEvent } = useCalendarStore()
+  const { activeEvent, startSavingEvent } = useCalendarStore()
 
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false)
 
@@ -89,7 +90,7 @@ export const CalendarModal = () => {
     closeDateModal()
   }
 
-  const onSubmitForm = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmitForm = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setFormSubmitted(true)
 
@@ -106,8 +107,9 @@ export const CalendarModal = () => {
     }
 
     // TODO:
-    // Close modal
-    // remove screen errors
+    await startSavingEvent(formValues)
+    closeDateModal()
+    setFormSubmitted(false)
   }
 
   return (
