@@ -9,8 +9,10 @@ import { CalendarEvent } from '../CalendarEvent'
 import { CalendarModal } from '../components/CalendarModal'
 import { useUiStore } from '@/hooks/useUiStore'
 import { useCalendarStore } from '@/hooks/useCalendarStore'
+import { FabAddNew } from '../components/FabAddNew'
 
 export interface CalendarEvent {
+  _id?: number
   title: string
   notes: string
   start: Date
@@ -85,6 +87,8 @@ export const CalendarPage = () => {
       />
 
       <CalendarModal />
+
+      <FabAddNew />
     </>
   )
 }
