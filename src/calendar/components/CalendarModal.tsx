@@ -101,7 +101,7 @@ export const CalendarModal = () => {
     }
 
     if (formValues.title.length <= 0) {
-      Swal.fire('Fechas incorrectas', 'Revisar las fechas ingresadas', 'error')
+      Swal.fire('El Titulo es obligatorio', 'Ingresar un título', 'error')
       return
     }
 
