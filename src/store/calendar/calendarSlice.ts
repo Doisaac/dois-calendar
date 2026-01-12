@@ -8,7 +8,7 @@ interface CalendarState {
   activeEvent: null | CalendarEvent
 }
 
-const tempEvent = {
+const tempEvent: CalendarEvent = {
   _id: new Date().getTime(),
   title: 'Cumpleaños del jefe',
   notes: 'Comprar el pastel',
