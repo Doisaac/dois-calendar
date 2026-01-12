@@ -1,6 +1,10 @@
 import type { CalendarEvent } from '@/calendar/pages/CalendarPage'
 import { useAppDispatch, useAppSelector } from './hooks'
-import { onAddNewEvent, onSetActiveEvent } from '@/store/calendar/calendarSlice'
+import {
+  onAddNewEvent,
+  onSetActiveEvent,
+  onUpdateEvent,
+} from '@/store/calendar/calendarSlice'
 import type { FormValues } from '@/calendar/components/CalendarModal'
 
 export const useCalendarStore = () => {
@@ -17,6 +21,7 @@ export const useCalendarStore = () => {
     // TODO: All good
     if (calendarEvent._id) {
       // Updating
+      dispatch(onUpdateEvent({ ...calendarEvent }))
     } else {
       // Creating
       dispatch(
