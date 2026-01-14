@@ -53,3 +53,16 @@
   right: 25px;
   z-index: 99;
 }
+
+.fab-danger {
+  align-items: center;
+  border-radius: 100%;
+  bottom: 25px;
+  display: flex;
+  font-size: 22px;
+  justify-content: center;
+  left: 25px;
+  position: fixed;
+  width: 70px;
+  height: 70px;
+}
