@@ -7,6 +7,10 @@ export const store = configureStore({
     ui: UiReducer,
     calendar: CalendarReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
