@@ -2,6 +2,7 @@ import type { CalendarEvent } from '@/calendar/pages/CalendarPage'
 import { useAppDispatch, useAppSelector } from './hooks'
 import {
   onAddNewEvent,
+  onDeleteEvent,
   onSetActiveEvent,
   onUpdateEvent,
 } from '@/store/calendar/calendarSlice'
@@ -34,13 +35,20 @@ export const useCalendarStore = () => {
     }
   }
 
+  const startDeletingEvent = async () => {
+    // TODO: Send request to backend
+    dispatch(onDeleteEvent())
+  }
+
   return {
     //* Properties
     events,
     activeEvent,
+    hasEventSelected: !!activeEvent,
 
     //* Methods
     setActiveEvent,
     startSavingEvent,
+    startDeletingEvent,
   }
 }
