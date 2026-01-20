@@ -12,7 +12,7 @@ export const useCalendarStore = () => {
   const { events, activeEvent } = useAppSelector((state) => state.calendar)
   const dispatch = useAppDispatch()
 
-  const setActiveEvent = (calendarEvent: CalendarEvent) => {
+  const setActiveEvent = (calendarEvent: CalendarEvent | null) => {
     dispatch(onSetActiveEvent(calendarEvent))
   }
 
@@ -30,7 +30,7 @@ export const useCalendarStore = () => {
           ...calendarEvent,
           // ! REMOVE WHEN BACKEND IS READY
           _id: new Date().getTime(),
-        })
+        }),
       )
     }
   }
