@@ -10,6 +10,7 @@ import {
 } from '@/store/auth/authSlice'
 import { type RegisterResponse } from '@/interfaces/login.response'
 import type { RegisterApiError } from '@/interfaces/register.response'
+import type { RevalidateTokenResponse } from '@/interfaces/revalidateToken.response'
 
 interface UserInformation {
   name?: string
@@ -87,6 +88,31 @@ export const useAuthStore = () => {
     }
   }
 
+  const checkAuthToken = async () => {
+    const token = localStorage.getItem('token')
+
+    if (!token) {
+      return dispatch(onLogout('Token expiró'))
+    }
+
+    try {
+      const { data } =
+        await calendarApi.get<RevalidateTokenResponse>('/auth/renew')
+
+      if (data && data.token) {
+        localStorage.setItem('token', data.token)
+        localStorage.setItem(
+          'token-init-date',
+          JSON.stringify(new Date().getTime()),
+        )
+        dispatch(onLogin({ name: data.name, uid: data.uuid }))
+      }
+    } catch (error) {
+      localStorage.clear()
+      dispatch(onLogout('Token expiró'))
+    }
+  }
+
   return {
     //* Properties
     status,
@@ -96,5 +122,6 @@ export const useAuthStore = () => {
     //* Methods
     startLogin,
     startRegister,
+    checkAuthToken,
   }
 }

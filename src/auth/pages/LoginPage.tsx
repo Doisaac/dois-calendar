@@ -56,7 +56,7 @@ export const LoginPage = () => {
 
   // Pop out the error message
   useEffect(() => {
-    if (errorMessage !== undefined) {
+    if (errorMessage !== undefined && !errorMessage.includes('Token')) {
       Swal.fire('Error en la autenticación', errorMessage, 'error')
     }
   }, [errorMessage])
