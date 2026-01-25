@@ -3,7 +3,7 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 interface Auth {
   status: AuthStatus
-  user: User | {}
+  user: User | null
   errorMessage: string | undefined
 }
 
@@ -11,7 +11,7 @@ export type AuthStatus = 'not-authenticated' | 'authenticated' | 'checking'
 
 const initialState: Auth = {
   status: 'checking',
-  user: {},
+  user: null,
   errorMessage: undefined,
 }
 
@@ -21,7 +21,7 @@ export const authSlice = createSlice({
   reducers: {
     onChecking: (state) => {
       state.status = 'checking'
-      state.user = {}
+      state.user = null
       state.errorMessage = undefined
     },
     onLogin: (state, action: PayloadAction<User>) => {
@@ -31,11 +31,11 @@ export const authSlice = createSlice({
       state.user = payload
       state.errorMessage = undefined
     },
-    onLogout: (state, action: PayloadAction<string>) => {
+    onLogout: (state, action: PayloadAction<string | undefined>) => {
       const { payload } = action
 
       state.status = 'not-authenticated'
-      state.user = {}
+      state.user = null
       state.errorMessage = payload
     },
     clearErrorMessage: (state) => {
