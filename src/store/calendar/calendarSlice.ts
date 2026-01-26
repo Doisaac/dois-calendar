@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { addHours } from 'date-fns'
 
-import type { CalendarEvent } from '@/calendar/pages/CalendarPage'
+import type { CalendarEvent } from '@/interfaces/calendar.interface'
 
 interface CalendarState {
   events: CalendarEvent[]
@@ -52,7 +52,7 @@ export const calendarSlice = createSlice({
     onDeleteEvent: (state) => {
       if (state.activeEvent) {
         state.events = state.events.filter(
-          (calendarEvent) => calendarEvent._id !== state.activeEvent?._id
+          (calendarEvent) => calendarEvent._id !== state.activeEvent?._id,
         )
         state.activeEvent = null
       }

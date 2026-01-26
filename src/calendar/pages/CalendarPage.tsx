@@ -11,19 +11,7 @@ import { useUiStore } from '@/hooks/useUiStore'
 import { useCalendarStore } from '@/hooks/useCalendarStore'
 import { FabAddNew } from '../components/FabAddNew'
 import { FabDelete } from '../components/FabDelete'
-
-export interface CalendarEvent {
-  _id?: number
-  title: string
-  notes: string
-  start: Date
-  end: Date
-  bgColor: string
-  user: {
-    _id: string
-    name: string
-  }
-}
+import type { CalendarEvent as CalendarEventInterface } from '@/interfaces/calendar.interface'
 
 const isView = (value: string): value is View => {
   return ['month', 'week', 'work_week', 'day', 'agenda'].includes(value)
@@ -36,10 +24,10 @@ export const CalendarPage = () => {
   const storedView = localStorage.getItem('lasView')
 
   const [lastView] = useState<View>(
-    storedView && isView(storedView) ? storedView : 'week'
+    storedView && isView(storedView) ? storedView : 'week',
   )
 
-  const eventStyleGetter: EventPropGetter<CalendarEvent> = () => {
+  const eventStyleGetter: EventPropGetter<CalendarEventInterface> = () => {
     const style: React.CSSProperties = {
       backgroundColor: '#347CF7',
       borderRadius: '0px',
@@ -52,12 +40,12 @@ export const CalendarPage = () => {
     }
   }
 
-  const onDoubleClick = (event: CalendarEvent) => {
+  const onDoubleClick = (event: CalendarEventInterface) => {
     console.log({ doubleClick: event })
     openDateModal()
   }
 
-  const onSelect = (event: CalendarEvent) => {
+  const onSelect = (event: CalendarEventInterface) => {
     setActiveEvent(event)
   }
 

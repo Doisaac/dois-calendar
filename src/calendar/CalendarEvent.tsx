@@ -1,5 +1,5 @@
 import type { EventProps } from 'react-big-calendar'
-import { type CalendarEvent as CalendarEventInterface } from './pages/CalendarPage'
+import { type CalendarEvent as CalendarEventInterface } from '../interfaces/calendar.interface'
 
 export const CalendarEvent = ({
   event,
