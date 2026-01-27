@@ -9,9 +9,11 @@ import {
 } from '@/store/calendar/calendarSlice'
 import type { FormValues } from '@/calendar/components/CalendarModal'
 import { createEventAction } from '@/calendar/actions/create-event.action'
-import { calendarApi } from '@/api/calendarApi'
 import { getEventsAction } from '@/calendar/actions/get-events.action'
 import { convertEventsToDateEvents } from '@/helpers/covertEventsToDateEvents'
+import { updateEventAction } from '@/calendar/actions/update-event.action'
+import Swal from 'sweetalert2'
+import { AxiosError } from 'axios'
 
 export const useCalendarStore = () => {
   const { events, activeEvent } = useAppSelector((state) => state.calendar)
@@ -23,14 +25,24 @@ export const useCalendarStore = () => {
   }
 
   const startSavingEvent = async (calendarFormValues: FormValues) => {
-    if (calendarFormValues._id) {
-      // Updating
-      await calendarApi.put(
-        `/events/${calendarFormValues._id}`,
-        calendarFormValues,
-      )
-      dispatch(onUpdateEvent({ ...calendarFormValues }))
-    } else {
+    try {
+      if (calendarFormValues.id) {
+        // Updating
+        await updateEventAction(calendarFormValues)
+
+        dispatch(
+          onUpdateEvent({
+            ...calendarFormValues,
+            user: {
+              name: user?.name || '',
+              _id: user?.uid || '',
+            },
+          }),
+        )
+
+        return
+      }
+
       // Creating
       const data = await createEventAction(calendarFormValues)
 
@@ -44,6 +56,14 @@ export const useCalendarStore = () => {
           },
         }),
       )
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        Swal.fire(
+          'Error al guardar',
+          'No tienes permiso para editar este evento',
+          'error',
+        )
+      }
     }
   }
 

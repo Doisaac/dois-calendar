@@ -21,7 +21,7 @@ import { useUiStore } from '@/hooks/useUiStore'
 import { useCalendarStore } from '@/hooks/useCalendarStore'
 
 export type FormValues = {
-  _id?: number | string
+  id?: number | string
   title: string
   notes: string
   start: Date

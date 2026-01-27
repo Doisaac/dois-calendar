@@ -30,9 +30,9 @@ export const calendarSlice = createSlice({
       state.activeEvent = null
     },
 
-    onUpdateEvent: (state, { payload }) => {
+    onUpdateEvent: (state, { payload }: PayloadAction<CalendarEvent>) => {
       state.events = state.events.map((calendarEvent) => {
-        if (calendarEvent.id === payload._id) {
+        if (calendarEvent.id === payload.id) {
           return payload
         }
 
