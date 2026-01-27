@@ -3,12 +3,15 @@ import { useAppDispatch, useAppSelector } from './hooks'
 import {
   onAddNewEvent,
   onDeleteEvent,
+  onLoadEvents,
   onSetActiveEvent,
   onUpdateEvent,
 } from '@/store/calendar/calendarSlice'
 import type { FormValues } from '@/calendar/components/CalendarModal'
 import { createEventAction } from '@/calendar/actions/create-event.action'
 import { calendarApi } from '@/api/calendarApi'
+import { getEventsAction } from '@/calendar/actions/get-events.action'
+import { convertEventsToDateEvents } from '@/helpers/covertEventsToDateEvents'
 
 export const useCalendarStore = () => {
   const { events, activeEvent } = useAppSelector((state) => state.calendar)
@@ -34,7 +37,7 @@ export const useCalendarStore = () => {
       dispatch(
         onAddNewEvent({
           ...calendarFormValues,
-          _id: data.event.id,
+          id: data.event.id,
           user: {
             _id: user?.uid || '',
             name: user?.name || '',
@@ -49,6 +52,18 @@ export const useCalendarStore = () => {
     dispatch(onDeleteEvent())
   }
 
+  const startLoadingEvents = async () => {
+    try {
+      const data = await getEventsAction()
+
+      const events = convertEventsToDateEvents(data.events)
+      dispatch(onLoadEvents(events))
+    } catch (error) {
+      console.log('Error loading events')
+      console.log(error)
+    }
+  }
+
   return {
     //* Properties
     events,
@@ -59,5 +74,6 @@ export const useCalendarStore = () => {
     setActiveEvent,
     startSavingEvent,
     startDeletingEvent,
+    startLoadingEvents,
   }
 }

@@ -2,7 +2,10 @@ export interface Event {
   id: string
   title: string
   notes: string
-  start: Date
-  end: Date
-  user: string
+  start: string
+  end: string
+  user: {
+    _id: string
+    name: string
+  }
 }

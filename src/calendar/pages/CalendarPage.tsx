@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Calendar, type EventPropGetter, type View } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 
@@ -19,7 +19,7 @@ const isView = (value: string): value is View => {
 
 export const CalendarPage = () => {
   const { openDateModal } = useUiStore()
-  const { events, setActiveEvent } = useCalendarStore()
+  const { events, setActiveEvent, startLoadingEvents } = useCalendarStore()
 
   const storedView = localStorage.getItem('lasView')
 
@@ -52,6 +52,11 @@ export const CalendarPage = () => {
   const onViewChanged = (event: View) => {
     localStorage.setItem('lasView', event)
   }
+
+  // Load the events
+  useEffect(() => {
+    startLoadingEvents()
+  }, [])
 
   return (
     <>

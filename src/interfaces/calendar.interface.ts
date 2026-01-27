@@ -1,5 +1,5 @@
 export interface CalendarEvent {
-  _id?: number | string // It is optional for creating/editing a calendar event
+  id?: number | string // It is optional for creating/editing a calendar event
   title: string
   notes: string
   start: Date
