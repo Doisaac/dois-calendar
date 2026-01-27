@@ -31,8 +31,11 @@ export const useCalendarStore = () => {
       dispatch(
         onAddNewEvent({
           ...calendarEvent,
-          id: data.event.id,
-          user,
+          _id: data.event.id,
+          user: {
+            _id: user?.uid || '',
+            name: user?.name || '',
+          },
         }),
       )
     }

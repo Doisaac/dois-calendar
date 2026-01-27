@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { addHours } from 'date-fns'
 
-import type { CalendarEvent } from '@/interfaces/calendar.interface'
+import type {  CalendarEvent } from '@/interfaces/calendar.interface'
 
 interface CalendarState {
   events: CalendarEvent[]
-  activeEvent: null | CalendarEvent
+  activeEvent: CalendarEvent | null
 }
 
 const tempEvent: CalendarEvent = {
@@ -30,11 +30,14 @@ export const calendarSlice = createSlice({
   name: 'calendar',
   initialState,
   reducers: {
-    onSetActiveEvent: (state, { payload }) => {
+    onSetActiveEvent: (
+      state,
+      { payload }: PayloadAction<CalendarEvent | null>,
+    ) => {
       state.activeEvent = payload
     },
 
-    onAddNewEvent: (state, { payload }) => {
+    onAddNewEvent: (state, { payload }: PayloadAction<CalendarEvent>) => {
       state.events.push(payload)
       state.activeEvent = null
     },
