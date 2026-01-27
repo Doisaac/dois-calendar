@@ -52,7 +52,6 @@ export const calendarSlice = createSlice({
     onLoadEvents: (state, { payload = [] }: PayloadAction<CalendarEvent[]>) => {
       state.isLoadingEvents = false
       payload.forEach((event) => {
-        console.log(event)
         const exists = state.events.some((dbState) => dbState.id === event.id)
 
         if (!exists) {
