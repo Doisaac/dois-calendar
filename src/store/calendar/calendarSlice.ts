@@ -55,10 +55,9 @@ export const calendarSlice = createSlice({
         const exists = state.events.some((dbState) => dbState.id === event.id)
 
         if (!exists) {
-          console.log('am i being call')
           state.events.push(event)
         }
-      }) 
+      })
     },
   },
 })
