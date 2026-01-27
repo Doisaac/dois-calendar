@@ -19,18 +19,21 @@ export const useCalendarStore = () => {
     dispatch(onSetActiveEvent(calendarEvent))
   }
 
-  const startSavingEvent = async (calendarEvent: FormValues) => {
-    if (calendarEvent._id) {
+  const startSavingEvent = async (calendarFormValues: FormValues) => {
+    if (calendarFormValues._id) {
       // Updating
-      await calendarApi.put(`/events/${calendarEvent._id}`, calendarEvent)
-      dispatch(onUpdateEvent({ ...calendarEvent }))
+      await calendarApi.put(
+        `/events/${calendarFormValues._id}`,
+        calendarFormValues,
+      )
+      dispatch(onUpdateEvent({ ...calendarFormValues }))
     } else {
       // Creating
-      const data = await createEventAction(calendarEvent)
+      const data = await createEventAction(calendarFormValues)
 
       dispatch(
         onAddNewEvent({
-          ...calendarEvent,
+          ...calendarFormValues,
           _id: data.event.id,
           user: {
             _id: user?.uid || '',
