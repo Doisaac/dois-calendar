@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Calendar, type EventPropGetter, type View } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 
@@ -12,12 +12,14 @@ import { useCalendarStore } from '@/hooks/useCalendarStore'
 import { FabAddNew } from '../components/FabAddNew'
 import { FabDelete } from '../components/FabDelete'
 import type { CalendarEvent as CalendarEventInterface } from '@/interfaces/calendar.interface'
+import { useAuthStore } from '@/hooks/useAuthStore'
 
 const isView = (value: string): value is View => {
   return ['month', 'week', 'work_week', 'day', 'agenda'].includes(value)
 }
 
 export const CalendarPage = () => {
+  const { user } = useAuthStore()
   const { openDateModal } = useUiStore()
   const { events, setActiveEvent, startLoadingEvents } = useCalendarStore()
 
@@ -27,18 +29,25 @@ export const CalendarPage = () => {
     storedView && isView(storedView) ? storedView : 'week',
   )
 
-  const eventStyleGetter: EventPropGetter<CalendarEventInterface> = () => {
-    const style: React.CSSProperties = {
-      backgroundColor: '#347CF7',
-      borderRadius: '0px',
-      opacity: 0.8,
-      color: 'white',
-    }
+  const eventStyleGetter: EventPropGetter<CalendarEventInterface> = useCallback(
+    (event) => {
+      console.log({ eventStyle: event })
 
-    return {
-      style,
-    }
-  }
+      const isMyEVent = user?.uid === event.user._id
+
+      const style: React.CSSProperties = {
+        backgroundColor: isMyEVent ? '#347CF7' : '#465660',
+        borderRadius: '0px',
+        opacity: 0.8,
+        color: 'white',
+      }
+
+      return {
+        style,
+      }
+    },
+    [],
+  )
 
   const onDoubleClick = (event: CalendarEventInterface) => {
     console.log({ doubleClick: event })
