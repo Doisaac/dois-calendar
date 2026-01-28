@@ -10,3 +10,9 @@ export interface EventUpdateResponse {
   msg: string
   event: Event
 }
+
+export interface EventDeleteResponse {
+  ok: boolean
+  msg: string
+  event: Event
+}

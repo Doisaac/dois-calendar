@@ -14,6 +14,7 @@ import { convertEventsToDateEvents } from '@/helpers/covertEventsToDateEvents'
 import { updateEventAction } from '@/calendar/actions/update-event.action'
 import Swal from 'sweetalert2'
 import { AxiosError } from 'axios'
+import { deleteEventAction } from '@/calendar/actions/delete-event.action'
 
 export const useCalendarStore = () => {
   const { events, activeEvent } = useAppSelector((state) => state.calendar)
@@ -68,8 +69,16 @@ export const useCalendarStore = () => {
   }
 
   const startDeletingEvent = async () => {
-    // TODO: Send request to backend
-    dispatch(onDeleteEvent())
+    try {
+      await deleteEventAction(activeEvent?.id || '')
+      dispatch(onDeleteEvent())
+    } catch (error) {
+      Swal.fire(
+        'Error al borrar',
+        'No tienes permiso para borrar este evento',
+        'error',
+      )
+    }
   }
 
   const startLoadingEvents = async () => {
