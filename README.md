@@ -1,73 +1,83 @@
-# React + TypeScript + Vite
+<div align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+  # 📆 Dois-Calendar
 
-Currently, two official plugins are available:
+  ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+  ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+  ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+  ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
+  ![MongoDB](https://img.shields.io/badge/-MongoDB-13aa52?style=for-the-badge&logo=mongodb&logoColor=white)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+</div>
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
 
-## Expanding the ESLint configuration
+# 📅 DOIS Calendar
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+DOIS Calendar is a calendar web application, where users can **create, edit, and delete events** through an intuitive and interactive interface focused on productivity and usability.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+The frontend communicates with a **RESTful backend API** that handles **JWT-based authentication** and full **event management (CRUD)**.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+🔗 Backend repository:
+https://github.com/Doisaac/dois-calendar-backend
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ✨ Features
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 🗓️ Calendar Module
+- Day, week, and month calendar views  
+- Create events with **start/end date and time**, title, and notes  
+- Select and highlight the active event  
+- Visual distinction between **own events and other users’ events**
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 🔐 Auth Module
+- User registration and login  
+- Session persistence using **JWT tokens**  
+- Protected routes (only authenticated users can manage events)
+
+### ⚙️ Events Module (CRUD)
+- **Create** new calendar events  
+- **Edit** existing events  
+- **Delete** events  
+- Input validation (required fields, valid dates)  
+- Authorization checks (only the event owner can modify or delete events)
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- React
+- TypeScript
+- Redux Toolkit
+- React Big Calendar
+- Bootstrap
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- JWT Authentication
+
+---
+
+## 🚀 Getting Started
+
+1. Clone the backend repository and follow the steps described in the README.md:
+   ```bash
+   git clone https://github.com/Doisaac/dois-calendar-backend
+   ```
+
+2. Once the backend is up and running, clone this repository and install the dependencies.
+   ```bash
+   pnpm install
+   ```
+
+3. Configure the environment variables by copying the `.env.template` file and renaming it to `.env`.
+   
+4. Run the application:
+   ```bash
+   pnpm run dev
+   ```
+
