@@ -8,6 +8,7 @@
   ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
   ![MongoDB](https://img.shields.io/badge/-MongoDB-13aa52?style=for-the-badge&logo=mongodb&logoColor=white)
 
+  ![dois-calendar-preview](https://github.com/Doisaac/dois-calendar/blob/main/public/dois-calendar-shot.png)
 
 </div>
 
