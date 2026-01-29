@@ -11,6 +11,7 @@ import {
 import { type RegisterResponse } from '@/interfaces/login.response'
 import type { RegisterApiError } from '@/interfaces/register.response'
 import type { RevalidateTokenResponse } from '@/interfaces/revalidateToken.response'
+import { onLogoutCalendar } from '@/store/calendar/calendarSlice'
 
 interface UserInformation {
   name?: string
@@ -115,6 +116,7 @@ export const useAuthStore = () => {
 
   const startLogout = () => {
     localStorage.clear()
+    dispatch(onLogoutCalendar())
     dispatch(onLogout(undefined))
   }
 
